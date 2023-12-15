@@ -8,7 +8,7 @@ const QuestionSection = () => {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [userAnswers, setUserAnswers] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
-    const [userScore, setUserScore] = useState(0);
+	const [userScore, setUserScore] = useState(0);
 
 	const handleSelectedAnswer = (selectedAnswer) => {
 		setUserAnswers([
@@ -22,31 +22,28 @@ const QuestionSection = () => {
 		setCurrentQuestion(currentQuestion - 1);
 	};
 
-    const calculateUserScore = () => {
-			let score = 0;
-			userAnswers.forEach((userAnswer) => {
-				const question = questions[userAnswer.question];
-				if (
-					question &&
-					userAnswer.selectedAnswer === question.answer
-				) {
-					score += question.score;
-				}
-			});
-			return score;
-		};
+	const calculateUserScore = () => {
+		let score = 0;
+		userAnswers.forEach((userAnswer) => {
+			const question = questions[userAnswer.question];
+			if (question && userAnswer.selectedAnswer === question.answer) {
+				score += question.score;
+			}
+		});
+		return score;
+	};
 
-        const showScores = () => {
-				setModalOpen(true);
-				const score = calculateUserScore();
-				setUserScore(score);
-				console.log("User Answers:", userAnswers);
-				console.log("User Score:", score);
-				console.log("User Answers:", userAnswers);
-			};
+	const showScores = () => {
+		setModalOpen(true);
+		const score = calculateUserScore();
+		setUserScore(score);
+		console.log("User Answers:", userAnswers);
+		console.log("User Score:", score);
+		console.log("User Answers:", userAnswers);
+	};
 
 	return (
-		<section className="flex flex-col justify-center my-auto">
+		<section className="flex flex-col justify-center mx-auto my-auto">
 			<div className="flex flex-col justify-center  gap-6">
 				<h1 className="text-semibold text-4xl">
 					Welcome to Techies Quiz !!!
@@ -62,15 +59,15 @@ const QuestionSection = () => {
 							allQuestions={questions}
 						/>
 					) : (
-						<div>
+						<div className="flex flex-col gap-3">
 							<h3 className="text-semibold text-2xl">Quiz completed!</h3>
 							<PrimaryButton onClick={showScores} text="Show scores" />
-
 							{modalOpen && (
 								<div>
-									<div>
-										<h2>Your Quiz Scores</h2>
-									</div>
+									<p className="text-2xl text-purple-700 font-semibold">
+										{userScore}
+									</p>
+                                    <p>{userScore >= 3  ? "Congratulations !!!" : "You can do better next time"}</p>
 								</div>
 							)}
 						</div>

@@ -45,7 +45,7 @@ const QuestionSection = () => {
 	return (
 		<section className="flex flex-col justify-center mx-auto my-auto">
 			<div className="flex flex-col justify-center  gap-6">
-				<h1 className="text-semibold text-4xl">
+				<h1 className="text-bold text-4xl">
 					Welcome to Techies Quiz !!!
 				</h1>
 				<div>

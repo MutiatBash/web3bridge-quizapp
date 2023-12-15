@@ -10,12 +10,19 @@ export const QuizCards = ({
     allQuestions
 }) => {
 	const [selectedAnswer, setSelectedAnswer] = useState("");
+    const [required, setRequired] = useState(false);
 
 	const handlesSelected = (option) => {
 		setSelectedAnswer(option);
+        setRequired(false); 
 	};
 
 	const handleNext = () => {
+        if (!selectedAnswer) {
+				setRequired(true);
+				return;
+			}
+
 		clickAnswer(selectedAnswer);
 		setSelectedAnswer("");
 	};
@@ -25,7 +32,7 @@ export const QuizCards = ({
 	};
 
 	return (
-		<div className="flex flex-col gap-4 md:gap-6 text-center p-10 w-[50%] mx-auto rounded-2xl shadow-xl text-black justify-center items-center">
+		<div className="flex flex-col gap-4 md:gap-6 text-center p-10 lg:w-[50%] mx-auto rounded-2xl shadow-xl text-black justify-center items-center">
 			<h2 className="font-medium text-xl">
 				Question {question.questionNumber}
 			</h2>
@@ -64,6 +71,12 @@ export const QuizCards = ({
 						/>
 					</div>
 				)}
+				{required && (
+					<span className="text-red-600 py-2 text-sm">
+						Please select an answer before moving to the next question.
+					</span>
+				)}
+				
 			</div>
 		</div>
 	);

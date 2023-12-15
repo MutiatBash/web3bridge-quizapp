@@ -8,11 +8,7 @@ const QuestionSection = () => {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [userAnswers, setUserAnswers] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
-
-	const showScores = () => {
-		setModalOpen(true);
-		console.log("User Answers:", userAnswers);
-	};
+    const [userScore, setUserScore] = useState(0);
 
 	const handleSelectedAnswer = (selectedAnswer) => {
 		setUserAnswers([
@@ -25,6 +21,29 @@ const QuestionSection = () => {
 	const handlePreviousQuestion = () => {
 		setCurrentQuestion(currentQuestion - 1);
 	};
+
+    const calculateUserScore = () => {
+			let score = 0;
+			userAnswers.forEach((userAnswer) => {
+				const question = questions[userAnswer.question];
+				if (
+					question &&
+					userAnswer.selectedAnswer === question.answer
+				) {
+					score += question.score;
+				}
+			});
+			return score;
+		};
+
+        const showScores = () => {
+				setModalOpen(true);
+				const score = calculateUserScore();
+				setUserScore(score);
+				console.log("User Answers:", userAnswers);
+				console.log("User Score:", score);
+				console.log("User Answers:", userAnswers);
+			};
 
 	return (
 		<section className="flex flex-col justify-center my-auto">
